@@ -6,6 +6,6 @@ const env = loadEnv("production", process.cwd(), "");
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: `dist/${env.PR_NUMBER || ""}`,
+    outDir: `docs/dist/${env.PR_NUMBER || ""}`,
   },
 });
