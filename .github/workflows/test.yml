@@ -1,16 +1,22 @@
 name: test running
 
-on: issue_comment
+on:
+  pull_request_review:
+    types:
+      - submitted
+  issue_comment:
+    types:
+      - created
 
 jobs:
-    pr_commented:
-      # This job only runs for pull request comments
-      name: PR comment
-      if: ${{ github.event.issue.pull_request }}
-      runs-on: ubuntu-latest
-      steps:
-        - run: |
-            echo A comment on PR $NUMBER
-          env:
-            NUMBER: ${{ github.event.issue.number }}
-  
+  pr_commented:
+    # This job only runs for pull request comments
+    name: PR comment
+    runs-on: ubuntu-latest
+    if: |
+      github.event.review.state == 'approved' && contains(github.event.pull_request.labels.*.name, 'deployment') || github.event.comment.body == '/deploy test'
+    steps:
+      - run: |
+          echo A comment on PR $NUMBER
+        env:
+          NUMBER: ${{ github.event.issue.number }}
