@@ -1,9 +1,12 @@
 name: Deploy Staging
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [pull_request]
+on:
+  issue_comment:
+    types: [created, edited, deleted]
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.issue.pull_request }}
 
     steps:
       - name: Checkout
