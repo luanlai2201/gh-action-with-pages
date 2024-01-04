@@ -3,7 +3,7 @@ name: Checkout PR on comment
 on:
   issue_comment:
     # triggers on created, edited and deleted by default, you may wanna restrict it, e.g.:
-    #types: [created]
+    types: [created]
 jobs:
   pr-commented:
     name: PR commented
